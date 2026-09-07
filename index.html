@@ -14,6 +14,9 @@
         <audio id="bgMusic" loop>
             <source src="./music/Benson Boone - Beautiful Things (Official Music Video).mp3" type="audio/mpeg">
         </audio>
+
+        <!-- Гортензии на переднем плане -->
+
         <div id="musicToggle" class="music-btn-circular">
             <svg class="rotating-text" viewBox="0 0 100 100" width="100" height="100">
                 <defs>
@@ -60,7 +63,7 @@
                 <div class="about-section fade-in">
                     <img src="./Images/L_height.webp" alt="Атмосфера" class="section-photo">
                     <h3>Немного о вечере</h3>
-                    <p class="text-block">«Забудь про все планы на 21.09.26 — мы устраиваем грандиозную вечеринку в честь моего дня рождения! Готовься к громкой музыке, танцам и лучшему вечеру этой осени.»</p>
+                    <p class="text-block">Забудь про все планы на 21.09.26 — мы устраиваем грандиозную вечеринку в честь моего дня рождения! Готовься к громкой музыке, танцам и лучшему вечеру этой осени.</p>
                 </div>
 
                 <div class="divider fade-in">✦ ✦ ✦</div>
@@ -82,14 +85,19 @@
                 
                 <div class="form-section fade-in">
                     <h3>Анкета гостя</h3>
-                    <p class="text-block" style="font-size: 1rem; margin-bottom: 25px;">Просим подтвердить ваше присутствие на дне рождения. Если будите не одни, укажите все имена.</p>
+                    <p class="text-block" style="font-size: 1rem; margin-bottom: 25px;">Просим подтвердить ваше присутствие на дне рождения.</p>
                     
-                    <input type="text" id="guestName" placeholder="Ваше Имя и Фамилия" required>
+                    <input type="text" id="guestName" placeholder="Укажите ваши имена" required>
                     
                     <div class="custom-radio-group">
                         <label class="custom-radio">
                             <input type="radio" name="attendance" value="приду" checked>
                             <span class="radio-text">Я с удовольствием приду</span>
+                        </label>
+                        <div class="custom-radio-group">
+                        <label class="custom-radio">
+                            <input type="radio" name="attendance" value="приду" checked>
+                            <span class="radio-text">Я с удовольствием приду с парой</span>
                         </label>
                         <label class="custom-radio">
                             <input type="radio" name="attendance" value="не_смогу">
