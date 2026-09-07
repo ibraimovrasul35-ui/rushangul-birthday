@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>День рождения Рушангуль</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <canvas id="confetti-canvas"></canvas>
+
+        <audio id="bgMusic" loop>
+            <source src="./music/Benson Boone - Beautiful Things (Official Music Video).mp3" type="audio/mpeg">
+        </audio>
+
+        <!-- Гортензии на переднем плане -->
+        <img src="" class="hydrangea decor-left" alt="Гортензия">
+        <img src="hydrangea-right.png" class="hydrangea decor-right" alt="Гортензия">
+
+        <div id="musicToggle" class="music-btn-circular">
+            <svg class="rotating-text" viewBox="0 0 100 100" width="100" height="100">
+                <defs>
+                    <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/>
+                </defs>
+                <text font-size="11.5">
+                    <textPath xlink:href="#circlePath">
+                        НАЖМИ ЧТОБЫ ВКЛЮЧИТЬ МУЗЫКУ • 
+                    </textPath>
+                </text>
+            </svg>
+            <div class="music-icon">♪</div>
+        </div>
+        
+        <div class="invitation-card">
+            <img src="./Images/qwerreytrt.webp" alt="Праздник" class="hero-photo">
+            
+            <div class="content-section">
+                <div class="festive-icon fade-in">✨</div>
+                <h1 class="fade-in">День рождения Рушангуль</h1>
+                <p class="subtitle fade-in">С большим удовольствием приглашаю вас разделить со мной этот особенный и радостный день!</p>
+                
+                <div class="divider fade-in">✦ ✦ ✦</div>
+                
+                <div class="calendar-section fade-in">
+                    <h3>Сентябрь 2026</h3>
+                    <div class="calendar-grid">
+                        <div class="cal-day-name">Пн</div><div class="cal-day-name">Вт</div><div class="cal-day-name">Ср</div><div class="cal-day-name">Чт</div><div class="cal-day-name">Пт</div><div class="cal-day-name">Сб</div><div class="cal-day-name">Вс</div>
+                        <div class="cal-day empty"></div>
+                        <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div>
+                        <div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div>
+                        <div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div>
+                        
+                        <div class="cal-day highlighted">21</div>
+                        
+                        <div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div>
+                        <div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
+                    </div>
+                    <div class="date-time" style="margin-top: 20px;">Начало в 19:00</div>
+                </div>
+                
+                <div class="divider fade-in">✦ ✦ ✦</div>
+                
+                <div class="about-section fade-in">
+                    <img src="./Images/L_height.webp" alt="Атмосфера" class="section-photo">
+                    <h3>Немного о вечере</h3>
+                    <p class="text-block">Этот год был невероятным! Я хочу отпраздновать его завершение и встретить свой новый год в кругу самых близких и дорогих мне людей. Нас ждут вкусная еда, танцы, классная музыка и море теплых эмоций.</p>
+                </div>
+
+                <div class="divider fade-in">✦ ✦ ✦</div>
+                
+                <div class="location-section fade-in">
+                    <h3>Жду вас здесь</h3>
+                    <p class="text-block"><strong>г. Алматы, Кафе «Мимино 2»</strong></p>
+                    <a href="https://2gis.kz/almaty/geo/70000001017394518/76.954873,43.352635" class="btn" target="_blank">Открыть карту</a>
+                </div>
+
+                <div class="timer fade-in" id="countdown">
+                    <div class="time-box"><span id="days">0</span><small>Дней</small></div>
+                    <div class="time-box"><span id="hours">0</span><small>Часов</small></div>
+                    <div class="time-box"><span id="mins">0</span><small>Минут</small></div>
+                    <div class="time-box"><span id="secs">0</span><small>Секунд</small></div>
+                </div>
+
+                <div class="divider fade-in">✦ ✦ ✦</div>
+                
+                <div class="form-section fade-in">
+                    <h3>Анкета гостя</h3>
+                    <p class="text-block" style="font-size: 1rem; margin-bottom: 25px;">Просим подтвердить ваше присутствие на дне рождения.</p>
+                    
+                    <input type="text" id="guestName" placeholder="Ваше Имя и Фамилия" required>
+                    
+                    <div class="custom-radio-group">
+                        <label class="custom-radio">
+                            <input type="radio" name="attendance" value="приду" checked>
+                            <span class="radio-text">Я с удовольствием приду</span>
+                        </label>
+                        <label class="custom-radio">
+                            <input type="radio" name="attendance" value="не_смогу">
+                            <span class="radio-text">К сожалению, не смогу присутствовать</span>
+                        </label>
+                    </div>
+
+                    <button type="button" id="submitBtn">Отправить ответ</button>
+                </div>
+                
+                <p class="footer-text fade-in">С любовью, Рушангуль! 🤍</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
