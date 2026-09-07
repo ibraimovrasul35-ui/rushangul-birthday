@@ -22,16 +22,47 @@ h1, h3, .date-main, .festive-icon, .footer-text, .time-box span {
     font-family: 'Cormorant Garamond', serif;
 }
 
+@keyframes gentleBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .page-wrapper {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
+    /* Вернули оригинальный мягкий градиент */
     background: linear-gradient(-45deg, #F7F5F0, #FDFBF8, #F0EAD6, #F9F1ED);
     background-size: 300% 300%;
+    animation: gentleBackground 20s ease infinite;
     position: relative;
     padding: 40px 15px;
     box-sizing: border-box;
+}
+
+/* Гортензии на переднем плане */
+.hydrangea {
+    position: fixed;
+    z-index: 15; /* Поверх карточки */
+    pointer-events: none; /* Пропускают клики сквозь себя */
+    opacity: 0.85;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+}
+
+.decor-left {
+    bottom: -40px;
+    left: -40px;
+    width: 250px;
+    transform: rotate(15deg);
+}
+
+.decor-right {
+    top: -40px;
+    right: -40px;
+    width: 220px;
+    transform: rotate(-10deg);
 }
 
 #confetti-canvas {
@@ -222,6 +253,8 @@ h3 {
     .music-btn-circular { bottom: 20px; right: 20px; width: 70px; height: 70px; }
     .music-icon { font-size: 1.8rem; }
     .content-section { padding: 40px 20px; }
+    .decor-left { width: 150px; bottom: -20px; left: -20px; }
+    .decor-right { width: 130px; top: -20px; right: -20px; }
 }
 
 .timer { 
