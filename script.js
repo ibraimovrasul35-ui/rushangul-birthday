@@ -1,87 +1,106 @@
-// === МУЗЫКА И АВТОЗАПУСК ===
-const music = document.getElementById('bg-music');
-const musicBtn = document.querySelector('.music-btn-circular');
-const musicIcon = document.querySelector('.music-icon');
-let isPlaying = false;
-
-// Включение/выключение музыки по нажатию на кнопку
-if (musicBtn) {
-    musicBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            music.pause();
-            musicIcon.textContent = '🔇'; // Значок выключенного звука
-            isPlaying = false;
-        } else {
-            music.play();
-            musicIcon.textContent = '🔊'; // Значок включенного звука
-            isPlaying = true;
-        }
-    });
-}
-
-// Хитрый автозапуск при первом касании экрана (для телефонов и строгих браузеров)
-document.body.addEventListener('click', function startAudio() {
-    if (music && music.paused && !isPlaying) {
-        music.play().then(() => {
-            isPlaying = true;
-            if (musicIcon) musicIcon.textContent = '🔊';
-        }).catch(err => console.log("Браузер ждет клика"));
-    }
-    // Удаляем событие после первого клика, чтобы не перегружать страницу
-    document.body.removeEventListener('click', startAudio);
-}, { once: true });
-
-
-// === ТАЙМЕР ОТСЧЕТА ===
-// Замени дату на нужную (Год-Месяц-ДеньTЧасы:Минуты:Секунды)
-const targetDate = new Date('2026-09-15T18:00:00').getTime();
-
-function updateTimer() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    if (distance < 0) return; // Если время вышло, таймер остановится
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distanceСкопируй этот готовый код и вставь его в свой файл **`script.js`**, брат. Этот скрипт сделает так, что музыка попытается включиться сама, а если телефон заблокирует звук — он включится при первом же касании экрана или скролле.
-
-```javascript
 document.addEventListener("DOMContentLoaded", function() {
-    const music = document.getElementById("bg-music");
-    const musicBtn = document.getElementById("music-btn");
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
 
-    function playAudio() {
-        if (music && music.paused) {
-            let playPromise = music.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(function(error) {
-                    console.log("Браузер заблокировал автоплей. Ждем клика.");
-                });
-            }
-        }
-    }
-
-    // Запуск при клике в любом месте страницы
-    document.body.addEventListener("click", function() {
-        playAudio();
-    }, { once: true });
-
-    // Запуск при касании экрана (для телефонов)
-    document.addEventListener("touchstart", function() {
-        playAudio();
-    }, { once: true });
-
-    // Работа самой кнопки (включить/выключить)
-    if (musicBtn) {
-        musicBtn.addEventListener("click", function(e) {
-            e.stopPropagation(); 
-            if (music.paused) {
-                music.play();
-            } else {
-                music.pause();
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); 
             }
         });
+    }, observerOptions);
+
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach(el => observer.observe(el));
+});
+
+const musicBtn = document.getElementById('musicToggle');
+const audio = document.getElementById('bgMusic');
+const musicIcon = musicBtn.querySelector('.music-icon');
+let isPlaying = false;
+
+musicBtn.addEventListener('click', function() {
+    if (isPlaying) {
+        audio.pause();
+        musicIcon.innerText = '♪'; 
+    } else {
+        audio.play();
+        musicIcon.innerText = '❚❚'; 
     }
+    isPlaying = !isPlaying;
+});
+
+window.addEventListener('load', function() {
+    var duration = 3000;
+    var end = Date.now() + duration;
+
+    (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#B88E83', '#E8E0D5', '#9E7469'] });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#B88E83', '#E8E0D5', '#9E7469'] });
+        if (Date.now() < end) requestAnimationFrame(frame);
+    }());
+});
+
+const countDownDate = new Date("Sep 21, 2026 19:00:00").getTime();
+const timerInterval = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
+
+    if (distance < 0) {
+        clearInterval(timerInterval);
+        document.getElementById("countdown").innerHTML = "<h3 style='color: #B88E83;'>Праздник уже начался!</h3>";
+        return;
+    }
+
+    document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    document.getElementById("mins").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("secs").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+}, 1000);
+
+// ЛОГИКА ОТПРАВКИ В TELEGRAM
+document.getElementById("submitBtn").addEventListener("click", function() {
+    const nameInput = document.getElementById("guestName");
+    const name = nameInput.value.trim();
+    const attendance = document.querySelector('input[name="attendance"]:checked').value;
+    
+    if (name === "") {
+        alert("Пожалуйста, введите ваше Имя и Фамилию.");
+        return;
+    }
+
+    // Твои настройки бота
+    const BOT_TOKEN = "8949574194:AAFGbc9jW-P827sGLEErAFNtb0exKRD-Ahg";
+    const CHAT_ID = "569215127";
+
+    const statusText = (attendance === "приду") ? "✅ С удовольствием придет!" : "❌ К сожалению, не сможет присутствовать.";
+    const message = `💌 Новый ответ на приглашение!\n\n👤 Имя: ${name}\n📌 Статус: ${statusText}`;
+
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    
+    fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            if (attendance === "приду") {
+                alert("Ответ сохранен! Очень ждем вас, " + name + "!");
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#B88E83', '#E8E0D5', '#9E7469'] });
+            } else {
+                alert("Очень жаль, " + name + ", что вы не сможете прийти. Ответ сохранен.");
+            }
+            nameInput.value = ""; 
+        } else {
+            alert("Ошибка при отправке. Попробуйте еще раз.");
+        }
+    })
+    .catch(error => {
+        console.error("Ошибка:", error);
+        alert("Ошибка соединения с сервером.");
+    });
 });
